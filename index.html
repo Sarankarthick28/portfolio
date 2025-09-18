@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saran Karthick - Game Design Portfolio</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eef4f8;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Blob Background Styling */
+        .blob-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(80px);
+            animation: blob-animation 20s infinite ease-in-out alternate;
+        }
+
+        .blob:nth-child(1) {
+            background: linear-gradient(135deg, #a0d1ff, #5a9bd4);
+            width: 400px;
+            height: 400px;
+            top: -50px;
+            left: -50px;
+            animation-duration: 25s;
+        }
+
+        .blob:nth-child(2) {
+            background: linear-gradient(135deg, #ffc0cb, #ff6347);
+            width: 350px;
+            height: 350px;
+            bottom: -80px;
+            right: -80px;
+            animation-duration: 20s;
+            animation-delay: 2s;
+        }
+
+        .blob:nth-child(3) {
+            background: linear-gradient(135deg, #d8bfd8, #8a2be2);
+            width: 500px;
+            height: 500px;
+            top: 30%;
+            right: -100px;
+            animation-duration: 28s;
+            animation-delay: 5s;
+        }
+
+        .blob:nth-child(4) {
+            background: linear-gradient(135deg, #b0e0e6, #4682b4);
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            left: 20%;
+            animation-duration: 22s;
+            animation-delay: 8s;
+        }
+
+        @keyframes blob-animation {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            25% {
+                transform: scale(1.1) translate(20px, -30px);
+            }
+            50% {
+                transform: scale(0.9) translate(-40px, 40px);
+            }
+            75% {
+                transform: scale(1.2) translate(30px, 50px);
+            }
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+        }
+
+        /* Main content container */
+        .section-container {
+            border: 1px solid #dcdcdc;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px auto;
+            max-width: 1000px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            background-color: #f8f8f8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, #ff6347, #ff4500);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* New Header Styles */
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+        }
+
+        header p {
+            font-family: 'Playfair Display', serif;
+            margin: 10px 0 0;
+            font-size: 1.5em;
+            opacity: 0.9;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Section Headings (H2) */
+        h2 {
+            text-align: center;
+            font-size: 2.2em;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            display: block;
+            width: auto;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6347, #ff4500);
+            border-radius: 2px;
+        }
+
+        /* About Me Section */
+        .about-me {
+            background-color: #f8f8f8;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        
+        /* Portfolio & Projects Galleries */
+        .portfolio-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            will-change: transform;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .portfolio-item img, .portfolio-item iframe {
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            display: block;
+            object-fit: cover;
+        }
+        
+        .portfolio-item iframe {
+            height: 300px;
+            border: none;
+        }
+        
+        .portfolio-item .caption {
+            padding: 18px;
+            text-align: center;
+            flex-grow: 1;
+            background-color: #f8f8f8;
+            border-top: 1px solid #eee;
+        }
+
+        .caption .title {
+            font-weight: 600;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            color: #34495e;
+            word-break: break-word;
+        }
+
+        .caption .description {
+            font-style: italic;
+            font-size: 1em;
+            color: #555;
+            word-break: break-word;
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        /* Image Display Controls */
+        .image-controls {
+            text-align: center;
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .image-controls button {
+            background-color: #5a9bd4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border-radius: 7px;
+            cursor: pointer;
+            margin: 0 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .image-controls button:hover {
+            background-color: #4682b4;
+            transform: translateY(-2px);
+        }
+        
+        /* New section for adding content */
+        .add-content-section {
+            text-align: center;
+            margin-top: 45px;
+            padding: 25px;
+            background-color: #fcfcfc;
+            border-radius: 10px;
+            box-shadow: inset 0 1px 5px rgba(0,0,0,0.05);
+            display: none;
+        }
+        
+        /* Buttons inside the add-content sections */
+        .add-content-section .add-btn, .add-content-section .open-modal-btn, .add-content-section .remove-btn {
+            padding: 12px 20px;
+            font-size: 1em;
+            border-radius: 7px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            color: white;
+            margin: 0 5px;
+        }
+
+        .add-content-section .add-btn, .add-content-section .open-modal-btn {
+            background-color: #28a745;
+        }
+        
+        .add-content-section .remove-btn {
+            background-color: #dc3545;
+        }
+
+        .add-content-section .add-btn:hover, .add-content-section .open-modal-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .add-content-section .remove-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        /* Pop-up modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content input {
+            width: 90%;
+            padding: 12px;
+            margin-top: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover, .close-btn:focus {
+            color: #555;
+            text-decoration: none;
+        }
+
+        /* Animation for modal */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Footer and Dev Mode Button */
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            background-color: #34495e;
+            color: #ecf0f1;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        #dev-mode-btn {
+            background-color: #7f8c8d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 1em;
+        }
+
+        #dev-mode-btn:hover {
+            background-color: #95a5a6;
+            transform: translateY(-2px);
+        }
+        
+        /* Styles for Editor Mode */
+        .editor-mode .portfolio-item, .editor-mode .add-content-section, .editor-mode .resume-box, .editor-mode .resume-box a {
+            border: 2px dashed #ff8c00;
+            box-shadow: 0 0 15px rgba(255,140,0,0.4);
+        }
+
+        .editor-mode .editable {
+            border: 1px dashed #ffa500;
+            padding: 5px;
+            min-height: 1.2em;
+            margin: 2px 0;
+            background-color: rgba(255,255,255,0.8);
+        }
+
+        .editor-mode .editable:empty::before {
+            content: "Click to Add Title";
+            color: #888;
+            font-style: normal;
+        }
+
+        .editor-mode .editable.description:empty::before {
+            content: "Click to Add Description";
+        }
+        
+        /* Show editing controls only in dev mode */
+        .editor-mode .add-content-section,
+        .editor-mode .image-controls,
+        .editor-mode .resume-box .drag-and-drop-area {
+            display: block;
+        }
+
+        .portfolio-item.hidden {
+            display: none;
+        }
+
+        /* Resume Box Styling */
+        .resume-box {
+            text-align: center;
+            margin-top: 45px;
+            padding: 25px;
+            background-color: #fcfcfc;
+            border-radius: 10px;
+            box-shadow: inset 0 1px 5px rgba(0,0,0,0.05);
+        }
+        
+        .resume-box h2 {
+            margin-top: 0;
+        }
+
+        #resume-display {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            display: none;
+        }
+
+        .drag-and-drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+            color: #777;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .drag-and-drop-area.hover {
+            border-color: #4682b4;
+            background-color: #eef4f8;
+            color: #4682b4;
+        }
+
+        .drag-and-drop-area input {
+            display: none;
+        }
+        
+        /* Contact Info Box */
+        .contact-info-box {
+            text-align: center;
+            font-size: 1.1em;
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info-box h2 {
+            color: white;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info-box h2::after {
+            background: linear-gradient(90deg, #5a9bd4, #ecf0f1);
+        }
+
+        .contact-info-box a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info-box a:hover {
+            color: #a0d1ff;
+            text-decoration: underline;
+        }
+
+        .contact-info-box p {
+            margin: 10px 0;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .section-container {
+                margin: 15px auto;
+                padding: 15px;
+            }
+            header {
+                padding: 30px 10px;
+            }
+            header h1 {
+                font-size: 2.5em;
+            }
+            header p {
+                font-size: 1.2em;
+            }
+            h2 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            .add-content-section .open-modal-btn {
+                width: 90%;
+            }
+            .add-content-section .remove-btn {
+                width: 90%;
+                margin-top: 10px;
+            }
+            .contact-info-box p {
+                font-size: 1em;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+
+            .blob:nth-child(1) { width: 250px; height: 250px; }
+            .blob:nth-child(2) { width: 200px; height: 200px; }
+            .blob:nth-child(3) { width: 300px; height: 300px; top: 60%; right: -50px;}
+            .blob:nth-child(4) { width: 200px; height: 200px; left: -50px; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="blob-container">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+
+    <header>
+        <h1>Saran Karthick</h1>
+        <p>Video Game Designer & Artist</p>
+    </header>
+
+    <div class="about-me section-container">
+        <h2>About Me</h2>
+        <p>Hello! I'm a passionate video game designer with a focus on creating engaging worlds and compelling gameplay experiences. This portfolio showcases my work, including concept art, level design maps, and project planning documents.</p>
+    </div>
+
+    <div class="portfolio section-container">
+        <h2>My Design Portfolio</h2>
+        
+        <div class="image-controls">
+            <button id="show-less">-</button>
+            <button id="show-more">+</button>
+        </div>
+        
+        <div class="portfolio-gallery">
+        </div>
+    </div>
+
+    <div class="projects section-container">
+        <h2>My Projects</h2>
+        <div class="projects-gallery portfolio-gallery">
+        </div>
+    </div>
+
+    <div class="add-content-section section-container">
+        <h4>Add a Panel</h4>
+        <button id="open-image-modal-btn" class="open-modal-btn">Add Image Panel</button>
+        <button id="open-game-modal-btn" class="open-modal-btn">Add Game Panel</button>
+        <button id="remove-game-btn" class="remove-btn">Remove Last Game</button>
+    </div>
+
+    <div class="resume-box section-container">
+        <h2>View My Resume</h2>
+        <img id="resume-display" src="#" alt="Resume Image" style="display: none;">
+        <div class="drag-and-drop-area">
+            <p>Drag and drop your resume image here</p>
+            <input type="file" id="resume-file-input" accept="image/*">
+        </div>
+    </div>
+
+    <div class="contact-info-box section-container">
+        <h2>Contact Me</h2>
+        <p>📞 Phone: <a href="tel:8220946806">8220946806</a></p>
+        <p>📧 Email: <a href="mailto:sarankarthick2808@gmail.com">sarankarthick2808@gmail.com</a></p>
+    </div>
+
+    <footer>
+        <button id="dev-mode-btn">Dev Mode</button>
+    </footer>
+
+    <div id="image-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h4>Enter Image Link</h4>
+            <input type="text" id="image-link-input" placeholder="Paste Google Drive direct link here">
+            <button id="add-panel-btn" class="add-btn">Add Panel</button>
+        </div>
+    </div>
+
+    <div id="game-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h4>Enter Itch.io Embed Code</h4>
+            <input type="text" id="itch-embed-input" placeholder="Paste your full Itch.io embed code here">
+            <button id="add-game-btn" class="add-btn">Add Game</button>
+        </div>
+    </div>
+
+<script>
+    const portfolioGallery = document.querySelector('.portfolio-gallery');
+    const projectsGallery = document.querySelector('.projects-gallery');
+    const showMoreBtn = document.getElementById('show-more');
+    const showLessBtn = document.getElementById('show-less');
+    
+    // Image Modal Controls
+    const openImageModalBtn = document.getElementById('open-image-modal-btn');
+    const imageModal = document.getElementById('image-modal');
+    const addImageBtn = document.getElementById('add-panel-btn');
+    const imageLinkInput = document.getElementById('image-link-input');
+
+    // Itch.io Modal Controls
+    const openGameModalBtn = document.getElementById('open-game-modal-btn');
+    const gameModal = document.getElementById('game-modal');
+    const addGameBtn = document.getElementById('add-game-btn');
+    const removeGameBtn = document.getElementById('remove-game-btn');
+    const itchEmbedInput = document.getElementById('itch-embed-input');
+
+    // Resume Controls
+    const resumeDisplay = document.getElementById('resume-display');
+    const dragAndDropArea = document.querySelector('.drag-and-drop-area');
+    const resumeFileInput = document.getElementById('resume-file-input');
+
+    const devModeBtn = document.getElementById('dev-mode-btn');
+    const body = document.body;
+    
+    let itemsVisible = 0;
+
+    function updateDisplay() {
+        const portfolioItems = document.querySelectorAll('.portfolio-gallery .portfolio-item');
+        portfolioItems.forEach((item, index) => {
+            if (index < itemsVisible) {
+                item.classList.remove('hidden');
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+        showLessBtn.disabled = itemsVisible <= 0;
+    }
+
+    function toggleEditable(isEditable) {
+        document.querySelectorAll('.editable').forEach(el => {
+            el.setAttribute('contenteditable', isEditable);
+        });
+    }
+
+    function addPanel(gallery, contentHTML) {
+        const newPanel = document.createElement('div');
+        newPanel.classList.add('portfolio-item');
+        newPanel.innerHTML = contentHTML;
+        gallery.appendChild(newPanel);
+        itemsVisible++;
+        updateDisplay();
+        if (body.classList.contains('editor-mode')) {
+            toggleEditable(true);
+        }
+    }
+
+    // Event Listeners for modals
+    openImageModalBtn.addEventListener('click', () => {
+        imageModal.style.display = 'flex';
+    });
+    
+    openGameModalBtn.addEventListener('click', () => {
+        gameModal.style.display = 'flex';
+    });
+
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.addEventListener('click', (event) => {
+            event.target.closest('.modal').style.display = 'none';
+        });
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    });
+
+    // Image & Game add listeners
+    addImageBtn.addEventListener('click', () => {
+        const imageUrl = imageLinkInput.value;
+        if (imageUrl.trim() !== '') {
+            const contentHTML = `
+                <img src="${imageUrl}" alt="">
+                <div class="caption">
+                    <div class="title editable" contenteditable="false">Click to Add Title</div>
+                    <div class="description editable" contenteditable="false">Click to Add Description</div>
+                </div>
+            `;
+            addPanel(portfolioGallery, contentHTML);
+            imageLinkInput.value = '';
+        }
+        imageModal.style.display = 'none';
+    });
+
+    addGameBtn.addEventListener('click', () => {
+        const embedCode = itchEmbedInput.value;
+        if (embedCode.trim() !== '') {
+            const contentHTML = `
+                ${embedCode}
+                <div class="caption">
+                    <div class="title editable" contenteditable="false">Click to Add Project Title</div>
+                    <div class="description editable" contenteditable="false">Click to Add Project Description</div>
+                </div>
+            `;
+            addPanel(projectsGallery, contentHTML);
+            itchEmbedInput.value = '';
+        }
+        gameModal.style.display = 'none';
+    });
+    
+    // Listener for the original "+" button
+    showMoreBtn.addEventListener('click', () => {
+        const contentHTML = `
+            <div class="caption">
+                <div class="title editable" contenteditable="false"></div>
+                <div class="description editable" contenteditable="false"></div>
+            </div>
+        `;
+        addPanel(portfolioGallery, contentHTML);
+    });
+
+    // Listener for the original "-" button
+    showLessBtn.addEventListener('click', () => {
+        const portfolioItems = document.querySelectorAll('.portfolio-gallery .portfolio-item');
+        if (portfolioItems.length > 0) {
+            portfolioItems[portfolioItems.length - 1].remove();
+            itemsVisible--;
+            updateDisplay();
+        }
+    });
+    
+    // Listener for the new "Remove Game" button
+    removeGameBtn.addEventListener('click', () => {
+        const gamePanels = document.querySelectorAll('.projects-gallery .portfolio-item');
+        if (gamePanels.length > 0) {
+            gamePanels[gamePanels.length - 1].remove();
+        }
+    });
+
+    // Resume Drag and Drop Functionality
+    dragAndDropArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dragAndDropArea.classList.add('hover');
+    });
+
+    dragAndDropArea.addEventListener('dragleave', () => {
+        dragAndDropArea.classList.remove('hover');
+    });
+
+    dragAndDropArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dragAndDropArea.classList.remove('hover');
+        const file = e.dataTransfer.files[0];
+        handleFile(file);
+    });
+
+    dragAndDropArea.addEventListener('click', () => {
+        resumeFileInput.click();
+    });
+
+    resumeFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        handleFile(file);
+    });
+
+    function handleFile(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                resumeDisplay.src = e.target.result;
+                resumeDisplay.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please upload a valid image file.');
+        }
+    }
+
+    // Dev Mode Button functionality
+    devModeBtn.addEventListener('click', () => {
+        const isEditorMode = body.classList.toggle('editor-mode');
+        if (isEditorMode) {
+            devModeBtn.textContent = 'Public Mode';
+            toggleEditable(true);
+            updateDisplay();
+            dragAndDropArea.style.display = 'block';
+            resumeDisplay.style.display = 'none';
+        } else {
+            devModeBtn.textContent = 'Dev Mode';
+            toggleEditable(false);
+            document.querySelectorAll('.portfolio-item').forEach(item => item.classList.remove('hidden'));
+            dragAndDropArea.style.display = 'none';
+            if (resumeDisplay.src && resumeDisplay.src !== window.location.href) {
+                resumeDisplay.style.display = 'block';
+            }
+        }
+    });
+
+    updateDisplay();
+</script>
+
+</body>
+</html>
